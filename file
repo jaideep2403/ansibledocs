@@ -1,0 +1,53 @@
+#download package
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+#extraproject for linux
+ls
+------------------------epel-release-latest-7.noarch.rpm
+
+yum install epel-release-latest-7.noarch.rpm
+yum update -y
+yum install git python python-level python-pip openssl ansible
+
+#config file = /etc/ansible/ansible.cfg
+
+vi /etc/ansible/hosts
+[groupname]
+private ip
+
+vi /etc/ansible/ansible.cfg
+uncomment inventory, sudo_user
+
+useradd ansibleuser
+passwd --stdin ansibleuser
+
+visudo
+root ALL=(ALL) ALL
+ansibleuser ALL=(ALL) NOPASSWD: ALL
+ansibleuser ALL=(ALL) NOPASSWD: ALL
+------
+su - ansibleuser
+sudo yum install httpd -y
+
+#ssh
+vi /etc/ssh/sshd_config
+
+
+------
+ssh-keygen 
+press enter 3 times
+ls
+cd .ssh/
+ls
+ssh-copy-id ansibleuser@<ip>
+-------------------------
+
+#ANSIBLE
+#adhoc command --simple linux commands
+ansible all --list-hosts
+ansible demogroup --list-hosts
+ansible demogroup -a "ls"
+ansible demogroup -ba "yum install httpd -y"
+ansible demogroup -ba "yum remove httpd -y"
+
+
